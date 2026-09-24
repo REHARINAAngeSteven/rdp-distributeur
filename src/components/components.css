@@ -1,0 +1,291 @@
+/* ─── Barre d'outils : carrosserie du boîtier ──────────────────────── */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: var(--carrosserie);
+  border-bottom: 1px solid var(--carrosserie-bordure);
+}
+
+.toolbar__titre {
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 600;
+  color: var(--blanc);
+}
+
+.toolbar__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--carrosserie-bordure);
+  border-radius: 4px;
+  background: #2E323A;
+  color: var(--blanc);
+  font-family: var(--font-titre);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn:hover {
+  background: #3A3F48;
+}
+
+.btn--actif {
+  background: var(--ambre);
+  color: var(--carrosserie);
+  border-color: var(--ambre);
+}
+
+/* ─── Canvas : la vitrine ───────────────────────────────────────────── */
+
+.canvas {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  background: var(--bg-canvas);
+}
+
+/* ─── Place : un état / un stock — reste un cercle (convention RdP) ─── */
+
+.place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.place__cercle {
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+}
+
+.place__nom {
+  font-family: var(--font-titre);
+  font-size: 0.75rem;
+  color: var(--encre);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Transition : un vrai bouton mécanique — reste un rectangle ────── */
+
+.transition {
+  position: relative;
+}
+
+.transition__barre {
+  display: block;
+  padding: 0.45rem 0.8rem;
+  min-width: 90px;
+  border: none;
+  border-radius: 5px;
+  background: #B9BFC6;
+  color: var(--blanc);
+  font-family: var(--font-titre);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: not-allowed;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.05);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+
+.transition--active .transition__barre {
+  background: var(--ambre);
+  color: var(--carrosserie);
+  cursor: pointer;
+  box-shadow: inset 0 -2px 0 var(--ambre-sombre), 0 2px 8px rgba(232, 163, 61, 0.4);
+  animation: pret 2.4s ease-in-out infinite;
+}
+
+.transition--active .transition__barre:hover {
+  background: #F0B04E;
+  transform: translateY(-1px);
+  box-shadow: inset 0 -2px 0 var(--ambre-sombre), 0 4px 12px rgba(232, 163, 61, 0.5);
+}
+
+.transition--active .transition__barre:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 -1px 0 var(--ambre-sombre);
+}
+
+.transition__barre:focus-visible {
+  outline: 2px solid var(--ambre);
+  outline-offset: 2px;
+}
+
+/* Respiration discrète = "je suis prête, clique-moi" — une seule anim,
+   un seul endroit, coupée si l'utilisateur préfère moins de mouvement. */
+@keyframes pret {
+  0%, 100% { box-shadow: inset 0 -2px 0 var(--ambre-sombre), 0 2px 8px rgba(232, 163, 61, 0.4); }
+  50%      { box-shadow: inset 0 -2px 0 var(--ambre-sombre), 0 2px 14px rgba(232, 163, 61, 0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition--active .transition__barre { animation: none; }
+}
+
+/* ─── Panneau latéral : afficheur digital du boîtier ────────────────── */
+
+.panneau {
+  width: 290px;
+  background: var(--carrosserie);
+  color: var(--blanc);
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.panneau__section h2 {
+  font-family: var(--font-titre);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--blanc);
+  margin: 0 0 0.6rem 0;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--ambre);
+}
+
+.panneau__vide {
+  font-size: 0.8rem;
+  color: var(--encre-douce);
+  margin: 0;
+  font-style: italic;
+}
+
+.liste-marquage {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.liste-marquage li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.82rem;
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid var(--carrosserie-bordure);
+}
+
+.liste-marquage strong {
+  font-family: var(--font-chiffre);
+  font-variant-numeric: tabular-nums;
+  color: var(--ambre);
+  font-size: 0.9rem;
+}
+
+.liste-actives,
+.liste-historique {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.82rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: var(--encre-douce);
+}
+
+.liste-actives li {
+  color: var(--ambre);
+  font-weight: 600;
+}
+
+/* Légende pédagogique — explique la convention du RdP une fois pour
+   toutes, avec les mêmes formes/couleurs que le canvas. */
+.legende {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legende__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.76rem;
+  color: var(--encre-douce);
+  line-height: 1.3;
+}
+
+.legende__icone {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legende__icone--place {
+  border-radius: 50%;
+  border: 2px solid var(--blanc);
+}
+
+.legende__icone--jeton {
+  border-radius: 50%;
+  background: var(--cuivre);
+  width: 8px;
+  height: 8px;
+}
+
+.legende__icone--transition {
+  width: 20px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--ambre);
+}
+
+.legende__icone--arc {
+  width: 20px;
+  border-top: 2px dashed var(--encre-douce);
+}
+
+/* Étiquettes de poids sur les arcs */
+.react-flow__edge-text {
+  font-family: var(--font-chiffre);
+  font-size: 0.72rem;
+  font-weight: 600;
+  fill: var(--encre);
+}
+
+.react-flow__edge-textbg {
+  fill: var(--bg-canvas);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.canvas--edition {
+  background: var(--bg-canvas);
+  box-shadow: inset 0 0 0 2px var(--ambre);
+}
+
+.canvas__aide {
+  background: var(--carrosserie);
+  color: var(--blanc);
+  font-size: 0.78rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}

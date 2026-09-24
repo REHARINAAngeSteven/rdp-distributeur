@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root {
+  /* Carrosserie / surfaces */
+  --bg-app: #ECEAE3;
+  --bg-canvas: #F6F5F1;
+  --carrosserie: #23262B;
+  --carrosserie-bordure: #3D424A;
+
+  /* Accents */
+  --ambre: #E8A33D;        /* transition franchissable */
+  --ambre-sombre: #C17F22;
+  --cuivre: #B6743A;       /* jetons */
+
+  /* Neutres */
+  --trait: #C9CDD3;
+  --encre: #1C1F24;
+  --encre-douce: #A7AEB6;
+  --blanc: #FDFDFC;
+
+  /* Typo */
+  --font-titre: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-chiffre: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-titre);
+  background: var(--bg-app);
+  color: var(--encre);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app__corps {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
